@@ -1,9 +1,0 @@
-# Chặn thư mục chứa plugin đã tải về máy
-.terraform/
-
-# Chặn các file lưu bản đồ hạ tầng (Tránh lộ secret/mật khẩu)
-*.tfstate
-*.tfstate.*
-
-# Chặn file log lỗi phát sinh
-errored.tfstate
