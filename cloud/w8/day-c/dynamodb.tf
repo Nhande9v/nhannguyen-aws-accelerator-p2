@@ -7,4 +7,9 @@ resource "aws_dynamodb_table" "terraform_lock"{
         name = "LockID"
         type = "S"
     }
+    tags = {
+    Name        = "nhannguyen-terraform-lock"
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
 }

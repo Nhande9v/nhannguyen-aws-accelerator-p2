@@ -1,7 +1,6 @@
 module "my_artifact_storage" {
-  source = ".   /modules/aws_s3_artifact" # Đường dẫn trỏ vào cái khuôn module con
+  source = "./modules/aws_s3_artifact"
 
-  # Truyền tham số thực tế vào đây
-  bucket_name = "nhannguyen-artifact-bucket"
+  bucket_name = var.artifact_bucket_name
   environment = "development"
 }
