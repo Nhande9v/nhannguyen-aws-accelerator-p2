@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Nhandc9v/nhannguyen-aws-accelerator-p2.git
+    repoURL: https://github.com/Nhande9v/nhannguyen-aws-accelerator-p2.git
     targetRevision: main
     path: w9/day-a/gitops-root/apps
 
