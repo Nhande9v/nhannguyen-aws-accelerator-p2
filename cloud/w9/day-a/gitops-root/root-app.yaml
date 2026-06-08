@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/Nhande9v/nhannguyen-aws-accelerator-p2.git
     targetRevision: main
-    path: w9/day-a/gitops-root/apps
+    path: cloud/w9/day-a/gitops-root/apps
 
   destination:
     server: https://kubernetes.default.svc

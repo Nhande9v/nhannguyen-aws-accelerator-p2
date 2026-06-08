@@ -87,3 +87,10 @@ B4: Mở cổng kết nối (Port-forward) vào giao diện Web
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 B5: Để biến toàn bộ đống file lý thuyết trong folder gitops-root/ của bạn thành thực tế, ở tab Terminal mới, bạn chỉ cần chạy đúng một lệnh duy nhất này để nạp "Thuyền trưởng" root-app.yaml:
 kubectl apply -f w9/day-a/gitops-root/root-app.yaml
+
+làm thêm cái này:
+Ép Minikube đồng bộ lại DNS từ máy Host:
+
+Bash
+minikube ssh "sudo sh -c 'echo \"nameserver 8.8.8.8\" > /etc/resolv.conf'"
+(Lệnh này giúp nạp DNS của Google thẳng vào trong lòng cụm CoreDNS nội bộ của Minikube để nó biết đường tìm đến github.com).
