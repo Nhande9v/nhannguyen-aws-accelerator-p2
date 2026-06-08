@@ -8,9 +8,9 @@ metadata:
 spec: 
   project: default
   source: 
-    repo: https://github.com/YOUR_USERNAME/day-1.git
+    repo: https://github.com/Nhandc9v/nhannguyen-aws-accelerator-p2.git
     targetRevision: HEAD
-    path: k8s-manifest/backend
+    path: w9/day-a/k8s-manifests/backend
 
   destination:
     server: https://kubernetes.default.svc

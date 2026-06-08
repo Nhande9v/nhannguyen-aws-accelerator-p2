@@ -69,3 +69,21 @@ Nếu cần debug tiếp:
 
 kubectl describe pod <pod-name>
 kubectl logs <pod-name>
+
+## 
+Hiện tại: Bạn đang đóng vai là ArgoCD bằng cách gõ tay lệnh kubectl apply. Bạn tự đọc file manifests rồi tự ra lệnh cho K8s chạy.
+
+Mục tiêu GitOps: Bạn sẽ cài ArgoCD vào cụm. Sau đó, bạn nạp file root-app.yaml vào ArgoCD. Kể từ lúc đó, bạn không bao giờ gõ lệnh kubectl apply nữa. ArgoCD sẽ tự động lên GitHub nhặt file, tự động chạy và tự động đồng bộ (Sync) về cụm Minikube của bạn.
+
+B1: kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+B2 : 1-2 phút để các container của ArgoCD tải xong và chạy. Kiểm tra bằng lệnh:
+kubectl get pods -n argocd
+B3: Lấy mật khẩu đăng nhập Admin của ArgoCD
+Mật khẩu mặc định được ArgoCD tự sinh ra và mã hóa trong Kubernetes Secret. Hãy chạy lệnh này để giải mã và lấy mật khẩu dạng chữ thường:
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode; echo
+pass của tôi: c-PTqrhmUIyR-uWo
+B4: Mở cổng kết nối (Port-forward) vào giao diện Web
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+B5: Để biến toàn bộ đống file lý thuyết trong folder gitops-root/ của bạn thành thực tế, ở tab Terminal mới, bạn chỉ cần chạy đúng một lệnh duy nhất này để nạp "Thuyền trưởng" root-app.yaml:
+kubectl apply -f w9/day-a/gitops-root/root-app.yaml
