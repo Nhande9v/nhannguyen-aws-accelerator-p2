@@ -1,0 +1,20 @@
+# Bỏ qua thư mục bộ nhớ đệm ẩn của Terraform
+.terraform/
+
+# Bỏ qua file khóa provider
+.terraform.lock.hcl
+
+# Bỏ qua các file bản đồ lưu tạm dưới máy local (vì mình đã đưa lên S3 backend rồi)
+*.tfstate
+*.tfstate.*
+
+# Bỏ qua file chứa biến bí mật (nếu sau này bạn có tạo để chứa mật khẩu/access key)
+*.tfvars
+*.tfvars.json
+
+# Bỏ qua các file log lỗi hoặc file backup tạm thời
+crash.log
+*.txt
+errored.tfstate
+
+**/node_modules/
