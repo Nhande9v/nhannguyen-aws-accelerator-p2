@@ -20,10 +20,10 @@ jobs:
       - name: Verify Manifest Files
         run: |
             echo "Checking manifest...."
-            find k8s-manifests -name "*.yaml"
+            find cloud/w9/day-a/k8s-manifests -name "*.yaml"
       - name: Kubernets Dry Run
         run: |
-            kubectl apply -f w9/day-a/k8s-manifests/ --dry-run=client
+            kubectl apply -f cloud/w9/day-a/k8s-manifests/ --dry-run=client
       - name: Show Success
         run: |
             echo "Manifest validation completed"
