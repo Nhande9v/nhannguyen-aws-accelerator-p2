@@ -2,7 +2,7 @@ name: GitOps Plan on PR
 
 on: 
   pull_request: 
-    branches: main
+    branches: [main]
 
   paths:
     - 'cloud/w9/day-a/k8s-manifests/**'
