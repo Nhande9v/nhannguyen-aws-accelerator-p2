@@ -43,6 +43,10 @@ Nó chạy từ waves thấp đến cao, chỉ chạy khi ở trạng thái heal
 - Git Revert (ưu tiên): Revert commit lỗi trên Git → ArgoCD/Flux tự sync về bản ổn định. Chậm hơn nhưng giữ đúng nguyên tắc Git = Source of Truth.
 - kubectl rollout undo (khẩn cấp): Rollback trực tiếp trên cluster, rất nhanh nhưng gây Out of Sync giữa Git và cluster. Nếu bật Self-Heal, ArgoCD có thể deploy lại bản lỗi.
 
+## để chạy github
+B1: git checkout -b feature/test-ci-cd : tạo nhánh
+
+
 # Lệnh chạy day-a: mở docker
 - minikube status: stop thì : minikube start
 - kubectl apply -R -f k8s-manifests/ --dry-run=client
