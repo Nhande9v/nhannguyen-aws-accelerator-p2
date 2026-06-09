@@ -31,4 +31,4 @@ spec:
         image: nginx:latest
 
         ports:
-          - containerPort: 8080
+          - containerPort: 80
