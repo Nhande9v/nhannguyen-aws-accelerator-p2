@@ -94,3 +94,8 @@ làm thêm cái này:
 Bash
 minikube ssh "sudo sh -c 'echo \"nameserver 8.8.8.8\" > /etc/resolv.conf'"
 (Lệnh này giúp nạp DNS của Google thẳng vào trong lòng cụm CoreDNS nội bộ của Minikube để nó biết đường tìm đến github.com).
+
+## chạy lại chỉ cần
+minikube start
+kubectl port-forward svc/argocd-server -n argocd 8080:443: cấp lại cổng giao diện
+kubectl port-forward deployment.apps/backend-deployment -n apps 5000:80: cổng truy cập backend
