@@ -5,7 +5,7 @@ on:
     branches: main
 
   paths:
-    - 'w9/day-a/k8s-manifests/**'
+    - 'cloud/w9/day-a/k8s-manifests/**'
 
 jobs:
   dry-run:
