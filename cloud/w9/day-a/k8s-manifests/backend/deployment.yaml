@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: doiquaidi
 
 metadata:
   name: backend-deployment
