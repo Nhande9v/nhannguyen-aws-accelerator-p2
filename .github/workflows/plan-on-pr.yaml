@@ -3,13 +3,12 @@ name: GitOps Plan on PR
 on: 
   pull_request: 
     branches: [main]
-
-  paths:
-    - 'cloud/w9/day-a/k8s-manifests/**'
+    paths:
+      - 'cloud/w9/day-a/k8s-manifests/**'
 
 jobs:
   dry-run:
-    runs on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -19,11 +18,11 @@ jobs:
           version: latest
       - name: Verify Manifest Files
         run: |
-            echo "Checking manifest...."
-            find cloud/w9/day-a/k8s-manifests -name "*.yaml"
-      - name: Kubernets Dry Run
+          echo "Checking manifest...."
+          find cloud/w9/day-a/k8s-manifests -name "*.yaml"
+      - name: Kubernetes Dry Run
         run: |
-            kubectl apply -f cloud/w9/day-a/k8s-manifests/ --dry-run=client
+          kubectl apply -f cloud/w9/day-a/k8s-manifests/ --dry-run=client
       - name: Show Success
         run: |
-            echo "Manifest validation completed"
+          echo "Manifest validation completed"
