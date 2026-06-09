@@ -18,4 +18,4 @@ jobs:
       - name: Deploy Manifest
         run: |
           echo "Deploying application..."
-          kubectl apply -f k8s-manifests/
+          kubectl apply -f cloud/w9/day-a/k8s-manifests/
