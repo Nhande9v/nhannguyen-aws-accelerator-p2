@@ -1,0 +1,14 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 1m
+  repeat_interval: 1h
+  receiver: 'web.hook' # Bạn có thể đổi thành tên kênh thông báo của bạn
+
+receivers:
+- name: 'web.hook'
+  webhook_configs:
+  - url: 'http://localhost:5001/' # Đây là nơi bạn sẽ nhận cảnh báo (ví dụ gửi lên Telegram/Slack)

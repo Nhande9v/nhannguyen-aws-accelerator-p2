@@ -103,3 +103,38 @@ minikube ssh "sudo sh -c 'echo \"nameserver 8.8.8.8\" > /etc/resolv.conf'"
 minikube start
 kubectl port-forward svc/argocd-server -n argocd 8080:443: cấp lại cổng giao diện
 kubectl port-forward deployment.apps/backend-deployment -n apps 5000:80: cổng truy cập backend
+
+[ ArgoCD UI ]
+            │
+      ┌─────▼────────┐
+      │   root-app   │  ◄── (Bạn chỉ tạo duy nhất thằng cha này)
+      └─────┬────────┘
+            │
+            ├───────────────────────┐
+      ┌─────▼────────┐        ┌─────▼────────┐
+      │ database-app │        │  backend-app │  ◄── (ArgoCD tự động đẻ ra,
+      └─────┬────────┘        └─────┬────────┘       bạn không cần bấm tay)
+            │                       │
+      ┌─────▼────────┐        ┌─────▼────────┐
+      │ Các Pod,     │        │ Các Pod,     │  ◄── (Hạ tầng chạy thực tế
+      │ Service K8s  │        │ Service K8s  │       trên Kubernetes)
+      └──────────────┘        └──────────────┘
+
+ArgoCD giải quyết trạng thái OutOfSync như thế nào?
+Khi hệ thống bị nhảy sang màu vàng OutOfSync, ArgoCD sẽ xử lý dựa vào cấu hình syncPolicy: automated mà bạn đã viết trong file:
+
+Bạn mở file backend-app.yaml dưới máy, sửa lại đường dẫn hoặc cấu hình, hoặc bạn tạo thêm file prometheus-app.yaml vứt vào thư mục apps/ rồi git push lên GitHub.
+Thằng cha root-app phát hiện trên Git có sự thay đổi (hoặc có file mới) mà dưới cụm K8s chưa hề có
+
+###### chọn window 1h x 5min và 6h x 30min
+- cặp 1h x 5min (Fast Burn)
++ Cảnh báo Sự cố nghiêm trọng (Critical).
++ 1 giờ: Đây là khoảng thời gian đủ ngắn để phản ứng ngay với các sự cố lớn (như server sập, database bị ngắt kết nối).
++ 5 phút: Đây là "cửa sổ quan sát" (lookback window). Chúng ta cần dữ liệu đủ dày trong 5 phút để xác định chắc chắn rằng lỗi này là thực tế, không phải do nhiễu mạng tức thời.
+- 6h x 30min (Slow Burn)
++ Cảnh báo Sự cố âm thầm (Warning).
++ 6 giờ: Đây là khoảng thời gian dài hơn, dùng để phát hiện các lỗi "dai dẳng" (ví dụ: phiên bản mới có một lỗi nhỏ gây 0.5% request lỗi, không làm sập web nhưng khiến người dùng khó chịu).
++ 30 phút: Cửa sổ nhìn lại dài hơn (so với 5 phút) giúp làm "mượt" dữ liệu. Nếu bạn dùng 5 phút cho một sự cố kéo dài 6 giờ, nó sẽ rất nhiễu. Dùng 30 phút giúp loại bỏ các spike nhỏ và nhìn thấy xu hướng (trend) của lỗi.
+
+Hành động của  fast burn là Gọi điện nhắn tin
+hành động của  slow burn là tạo ticket xem xét vào sáng hôm sau   

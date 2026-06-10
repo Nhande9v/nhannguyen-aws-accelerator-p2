@@ -1,0 +1,39 @@
+groups:
+- name: SRE_Alerts
+  rules:
+  # Cảnh báo Fast Burn: Tiêu thụ nhanh ngân sách lỗi trong thời gian ngắn (1h, window 5m)
+  - alert: HighErrorRateFastBurn
+    expr: |
+      (
+        sum(rate(app_http_request_duration_count{http_status_code="500"}[5m])) 
+        / 
+        sum(rate(app_http_request_duration_count[5m]))
+      ) > (14.4 * 0.001) # Giả sử SLO là 99.9% (0.001), 14.4 là hệ số burn rate
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Burn rate nhanh! (1h window)"
+
+  # Cảnh báo Slow Burn: Tiêu thụ ngân sách lỗi dần dần (6h, window 30m)
+  - alert: HighErrorRateSlowBurn
+    expr: |
+      (
+        sum(rate(app_http_request_duration_count{http_status_code="500"}[30m])) 
+        / 
+        sum(rate(app_http_request_duration_count[30m]))
+      ) > (6 * 0.001)
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Burn rate chậm! (6h window)"
+
+  - alert: TestAlert
+    expr: up == 1  # Kiểm tra xem hệ thống có đang UP hay không
+    for: 0m        # Không chờ đợi, báo ngay lập tức
+    labels:
+      severity: critical
+    annotations:
+      summary: "Pipeline dang hoat dong tot!"
+  
