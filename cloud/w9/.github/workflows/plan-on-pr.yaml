@@ -1,0 +1,29 @@
+name: GitOps Plan on PR
+
+on: 
+  pull_request: 
+    branches: main
+
+  paths:
+    - 'w9/day-a/k8s-manifests/**'
+
+jobs:
+  dry-run:
+    runs on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install Kubectl
+        uses: azure/setup-kubectl@v4
+        with: 
+          version: latest
+      - name: Verify Manifest Files
+        run: |
+            echo "Checking manifest...."
+            find k8s-manifests -name "*.yaml"
+      - name: Kubernets Dry Run
+        run: |
+            kubectl apply -f w9/day-a/k8s-manifests/ --dry-run=client
+      - name: Show Success
+        run: |
+            echo "Manifest validation completed"
