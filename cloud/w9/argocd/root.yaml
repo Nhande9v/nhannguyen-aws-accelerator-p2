@@ -1,20 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: web
+  name: root
   namespace: argocd
-
 spec:
   project: default
 
   source:
     repoURL: https://github.com/Nhande9v/nhannguyen-aws-accelerator-p2.git
     targetRevision: main
-    path: cloud/w9/k8s
+    path: cloud/w9/argocd/apps
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: demo
+    namespace: argocd
 
   syncPolicy:
     automated:
