@@ -141,4 +141,18 @@ Pipeline cho Loki đã được khai báo trong Collector, sẵn sàng để ti�
 Bạn đã có các endpoint mô phỏng (/api/success, /api/error, /api/slow) để đo đạc các chỉ số này.
 
 Hệ thống đã có khả năng ghi nhận dữ liệu thực tế cho các metric này.
+hệ thống nâng cao sử dụng Burn Rate dựa trên phương pháp SLO
+SLI là gì?
+•	Service Level Indicator. 
+•	Chỉ số đo chất lượng dịch vụ. 
+SLO là gì?
+•	Service Level Objective. 
+•	Mục tiêu mong muốn của SLI. 
 
+SLI (Service Level Indicator): Là con số thực tế đang đo được (ví dụ: hiện tại hệ thống uptime 99.98%).
+SLO (Service Level Objective): Là ngưỡng mục tiêu mà nhóm bạn đặt ra (ví dụ: chúng ta phải đạt 99.95%).
+SLA (Service Level Agreement): Là cam kết tối thiểu với khách hàng (ví dụ: khách hàng chấp nhận mức 99.9%).
+
+## Montoring và observaiblibity
+Montoring : CPU cao không, Pod có restart ko, hệ thông có chạy ko
+Observability: Tại sao hệ thống bị lỗi, service nào gây lỗi, lỗi xảy ra ở đâu
