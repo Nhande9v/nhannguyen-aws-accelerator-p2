@@ -33,6 +33,11 @@ spec:
                 res.end('Backend not reachable');
               });
             }).listen(3000);
+    readinessProbe:
+          tcpSocket:
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10         
 ---
 apiVersion: v1
 kind: Service
