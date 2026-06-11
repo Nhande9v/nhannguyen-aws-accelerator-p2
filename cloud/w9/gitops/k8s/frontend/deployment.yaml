@@ -27,17 +27,19 @@ spec:
                 beRes.on('data', (chunk) => data += chunk);
                 beRes.on('end', () => {
                   res.writeHead(200, {'Content-Type': 'application/json'});
-                  res.end(data); // Trả kết quả từ Backend về trình duyệt
+                  res.end(data);
                 });
               }).on('error', (err) => {
                 res.end('Backend not reachable');
               });
             }).listen(3000);
-    readinessProbe:
+
+        readinessProbe:
           tcpSocket:
             port: 3000
           initialDelaySeconds: 5
-          periodSeconds: 10         
+          periodSeconds: 10
+
 ---
 apiVersion: v1
 kind: Service
