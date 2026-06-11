@@ -1,0 +1,23 @@
+name: validate
+
+on:
+  pull_request:
+    paths:
+      - "w9/k8s/**" # Chỉ kích hoạt kích kiểm tra khi có thay đổi trong folder k8s của w9
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Install Kubeconform
+        run: |
+          curl -sSLo kc.tgz https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz
+          tar -xzf kc.tgz
+          sudo mv kubeconform /usr/local/bin/
+
+      - name: Validate Kubernetes Manifests
+        run: |
+          kubeconform -strict -summary w9/k8s/
