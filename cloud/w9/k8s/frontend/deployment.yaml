@@ -21,11 +21,18 @@ spec:
           - |
             const http = require('http');
             http.createServer((req, res) => {
-              res.writeHead(200, {'Content-Type': 'text/html'});
-              res.end('<h1>Frontend Node.js</h1><p>Check console for Backend data</p>');
+              // Gọi tới backend thông qua Service nội bộ của K8s
+              http.get('http://backend-service:8080', (beRes) => {
+                let data = '';
+                beRes.on('data', (chunk) => data += chunk);
+                beRes.on('end', () => {
+                  res.writeHead(200, {'Content-Type': 'application/json'});
+                  res.end(data); // Trả kết quả từ Backend về trình duyệt
+                });
+              }).on('error', (err) => {
+                res.end('Backend not reachable');
+              });
             }).listen(3000);
-        ports:
-        - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
