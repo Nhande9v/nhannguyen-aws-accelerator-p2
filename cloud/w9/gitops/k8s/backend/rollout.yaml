@@ -55,7 +55,7 @@ spec:
                 res.end(JSON.stringify({ error: "Internal Server Error", pod: process.env.HOSTNAME }));
               } else {
                 res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify({ message: "Hello from Node.js Backend!", pod: process.env.HOSTNAME }));
+                res.end(JSON.stringify({ message: "Hello from Node.js Backend v2!", pod: process.env.HOSTNAME }));
               }
             }).listen(8080);
         ports:
