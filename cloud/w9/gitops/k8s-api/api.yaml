@@ -35,9 +35,13 @@ spec:
           periodSeconds: 5
   strategy:
     canary:
+      analysis:
+        templates:
+        - templateName: api-success-rate
       steps:
       - setWeight: 25
-      - pause: {}
+      - pause:
+          duration: 30s
       - setWeight: 50
       - pause:
           duration: 30s
