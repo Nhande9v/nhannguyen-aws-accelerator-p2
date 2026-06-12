@@ -26,3 +26,13 @@ Rollout = quy trình deploy canary.
 AnalysisTemplate = bộ tiêu chí đánh giá.
 Canarry = chiến lược deploy dần dần
 B5: observability.yaml: Kết nối mọi thứ vào ArgoCD
+kubectl create namespace argo-rollouts
+kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
+nhớ cài
+
+Bạn không nhất thiết phải dùng helm, bạn có thể áp dụng trực tiếp các file YAML định nghĩa CRD từ trang chủ của Prometheus-Operator.
+
+Hãy chạy lệnh này để cài đặt "bộ khung" của Prometheus vào cluster mà không cần cài Helm:
+
+Bash
+kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/bundle.yaml
