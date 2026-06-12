@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Nhande9v/nhannguyen-aws-accelerator-p2.git
     targetRevision: main
-    path: cloud/w9/gitops/argocd/apps
+    path: argocd/apps
 
   destination:
     server: https://kubernetes.default.svc
