@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
-  name: api-success-rate
+  name: api-success-rate-api
   namespace: demo
 spec:
   metrics:
