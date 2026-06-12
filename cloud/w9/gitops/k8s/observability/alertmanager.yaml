@@ -21,7 +21,7 @@ data:
     receivers:
     - name: 'email-notifications'
       email_configs:
-      - to: 'nhannguyen.gitops@gmail.com' # Email cá nhân của học viên
+      - to: 'hoangnhan912004dn@gmail.com' # Email cá nhân của học viên
         send_resolved: true
         headers:
           subject: '[Alertmanager] {{ .Status | toUpper }} - {{ .GroupLabels.alertname }}'
