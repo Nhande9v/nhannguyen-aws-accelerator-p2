@@ -6,9 +6,11 @@ metadata:
 data:
   alertmanager.yml: |
     global:
-      smtp_smarthost: 'mailhog.monitoring.svc.cluster.local:1025'
-      smtp_from: 'alertmanager@example.com'
-      smtp_require_tls: false
+      smtp_smarthost: 'smtp.gmail.com:587'
+      smtp_auth_username: 'hoangnhan912004dn@gmail.com'
+      smtp_auth_password: 'zpfi rzpx yarh fvlq'
+      smtp_from: 'hoangnhan912004dn@gmail.com'
+      smtp_require_tls: true
       resolve_timeout: 1m
 
     route:
