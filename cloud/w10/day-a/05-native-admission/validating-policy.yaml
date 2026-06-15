@@ -1,0 +1,15 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: require-env-label-policy
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   [""]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["pods"]
+  validations:
+    - expression: "has(object.metadata.labels) && 'env' in object.metadata.labels"
+      message: "Bắt buộc phải có label 'env' cho Pod theo quy chuẩn Kubernetes 1.30+ Native Policy."

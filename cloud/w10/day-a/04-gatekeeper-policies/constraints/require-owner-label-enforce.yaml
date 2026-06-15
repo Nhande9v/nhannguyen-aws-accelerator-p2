@@ -1,0 +1,14 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredLabels
+metadata:
+  name: pod-must-have-owner-enforce
+spec:
+  enforcementAction: deny # Chặn đứng ngay lập tức nếu vi phạm
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "lab-rbac-policy" # Chỉ áp dụng nghiêm ngặt trong namespace lab
+  parameters:
+    labels: ["owner"]

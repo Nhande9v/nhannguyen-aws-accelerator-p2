@@ -1,0 +1,11 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: require-env-label-binding
+spec:
+  policyName: require-env-label-policy
+  validationActions: [Deny] # Có thể đổi thành [Warn] nếu muốn test audit
+  matchResources:
+    namespaceSelector:
+      matchLabels:
+        project: self-study-w10 # Chỉ áp dụng cho các namespace có label này

@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: backend-rollout
+  namespace: day-c-canary
+spec:
+  replicas: 4
+  strategy:
+    canary:
+      stableService: backend-stable
+      canaryService: backend-canary
+      steps:
+      - setWeight: 10
+      - pause: { duration: 1m } # Giữ 10% traffic trong 1 phút để tích lũy metrics ban đầu
+      - setWeight: 25
+        # Bắt đầu chạy Analysis tự động song song với step này
+      - analysis:
+          templates:
+          - templateName: backend-burn-rate-analysis
+      - pause: { duration: 5m }
+      - setWeight: 50
+      - pause: { duration: 2m }
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: my-registry/backend:v1 # Thay bằng image thực tế của bạn
+        ports:
+        - containerPort: 5000
+          name: http

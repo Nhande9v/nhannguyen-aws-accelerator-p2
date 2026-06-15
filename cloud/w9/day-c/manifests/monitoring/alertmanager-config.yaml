@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: canary-alerts
+  namespace: day-c-canary
+spec:
+  route:
+    groupBy: ['alertname']
+    groupWait: 10s
+    groupInterval: 1m
+    repeatInterval: 1h
+    receiver: 'SlackWebhook'
+  receivers:
+  - name: 'SlackWebhook'
+    slackConfigs:
+    - apiURL: 
+        key: webhook
+        name: slack-secret # Secret chứa Slack Webhook URL
+      channel: '#devops-alerts'
+      sendResolved: true

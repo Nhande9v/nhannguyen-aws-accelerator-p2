@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: backend-burn-rate-rules
+  namespace: day-c-canary
+  labels:
+    role: alert-rules
+spec:
+  groups:
+    - name: backend-slo
+      rules:
+        # 1. Tính toán Tỷ lệ lỗi (Error Rate) trong 5 phút qua
+        - record: job:http_requests_errors:ratio_rate5m
+          expr: |
+            sum(rate(http_requests_total{status=~"5.*"}[5m])) 
+            / 
+            sum(rate(http_requests_total[5m]))
+        
+        # 2. Tính toán Burn Rate (SLO Error Budget Burn Rate)
+        # Công thức: Burn Rate = Current Error Rate / (1 - SLO) 
+        # Với SLO = 99.5% => (1 - SLO) = 0.005
+        - record: job:error_budget_burn_rate:ratio_rate5m
+          expr: job:http_requests_errors:ratio_rate5m / 0.005

@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: backend-burn-rate-analysis
+  namespace: day-c-canary
+spec:
+  metrics:
+  - name: burn-rate-check
+    interval: 30s
+    successCondition: result[0] < 1
+    failureLimit: 2 # Cho phép 2 lần vi phạm (1 phút) trước khi thực hiện Abort
+    provider:
+      prometheus:
+        address: http://prometheus-k8s.monitoring.svc.cluster.local:9090 # Đổi theo đúng URL Prometheus của bạn
+        query: |
+          scalar(job:error_budget_burn_rate:ratio_rate5m{namespace="day-c-canary"})

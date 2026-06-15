@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: lab-rbac-policy
+  labels:
+    env: staging
+    project: self-study-w10
