@@ -1,0 +1,25 @@
+# === CÁC FILE CHƯƠNG TRÌNH THỰC THI (RẤT NẶNG) ===
+# Chặn đứng không cho push file cosign.exe bạn cài lúc nãy lên Git
+*.exe
+*.dll
+*.so
+*.dylib
+
+# === BẢO MẬT: KHÔNG LỘ KHÓA BÍ MẬT ===
+# Chặn các file private key của Cosign để tránh bị lộ mật mã công ty
+*.key
+*.pem
+# Nếu bạn lưu password ra file text để nhớ thì chặn luôn
+pass.txt
+secrets.txt
+
+# === ĐƯỢC PHÉP ĐẨY LÊN (Dấu ngoại lệ) ===
+# Vẫn cho phép đẩy file cấu hình công khai Public Key (.pub) lên để làm minh chứng bài lab
+!*.pub
+
+# === FILE RÁC CỦA HỆ ĐIỀU HÀNH & VS CODE ===
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+node_modules/

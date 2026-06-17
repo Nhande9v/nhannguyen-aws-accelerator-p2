@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: verify-image-signature
+spec:
+  validationFailureAction: Enforce # Chặn đứng không cho deploy nếu sai phạm
+  background: false
+  rules:
+    - name: verify-signature-of-azurahaven
+      match:
+        any:
+        - resources:
+            namespaces:
+            - demo-app
+            kinds:
+            - Pod
+      verifyImages:
+        - imageReferences:
+            - "localhost:5005/azurahaven-backend:*"
+          attestations: []
+          # Điền Public Key của bạn vào đây để Kyverno check chữ ký
+          key: |-
+            -----BEGIN PUBLIC KEY-----
+                MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEY5JLhToc2jSE34jO85u2QcmSF3fT
+                rAbt+knWdm1baYoMau9oLwiP3ePhrxY6M/osH+6N0lVYeakxEy2wrAHyAA==
+            -----END PUBLIC KEY-----

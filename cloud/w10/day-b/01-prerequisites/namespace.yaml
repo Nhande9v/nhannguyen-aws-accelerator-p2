@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external-secrets
+  labels:
+    shared-infra: "true" # hạ tầng dùng chung (shared infrastructure)
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kyverno
+  labels:
+    security-control: "true" # Namespace này thuộc lớp kiểm soát bảo mật (security layer)
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-app
+  labels:
+    environment: production # Namespace này thuộc môi trường production (hệ thống thật)

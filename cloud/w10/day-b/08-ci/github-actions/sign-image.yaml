@@ -1,0 +1,39 @@
+name: Sign Production Image (Cosign)
+
+on:
+  push:
+    tags:
+      - 'v*' # Chỉ chạy luồng ký khi release bản chuẩn (Ví dụ: v1.0.0)
+
+jobs:
+  sign-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # QUAN TRỌNG: Cấp quyền sinh OIDC Token ngắn hạn để chạy luồng Keyless
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3.5.0
+
+      - name: Log in to Registry
+        run: |
+          echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login localhost:5005 -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+
+      # --- CÁCH 1: KÝ DÙNG KEY (KEY-BASED) ---
+      - name: Sign Image with Private Key
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        run: |
+          echo "$COSIGN_PRIVATE_KEY" > cosign.key
+          cosign sign --key cosign.key my-registry.internal/azurahaven/backend:${{ github.ref_name }}
+          rm -f cosign.key
+
+      # --- CÁCH 2: KÝ KHÔNG DÙNG KEY (KEYLESS OIDC) ---
+      - name: Sign Image with Keyless OIDC
+        run: |
+          cosign sign my-registry.internal/azurahaven/backend:${{ github.ref_name }}

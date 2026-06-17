@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azurahaven-backend
+  namespace: demo-app
+  labels:
+    app: azurahaven-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: azurahaven-backend
+  template:
+    metadata:
+      labels:
+        app: azurahaven-backend
+    spec:
+      containers:
+      - name: backend-api
+        image: localhost:5005/azurahaven-backend:v1.0.0 # Image này sẽ được quét và ký ở các bước sau
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: azurahaven-prod-secret
+                key: DB_HOST
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: azurahaven-prod-secret
+                key: DB_USER
+          - name: DATABASE_PASS
+            valueFrom:
+              secretKeyRef:
+                name: azurahaven-prod-secret
+                key: DB_PASS
+
+
+    

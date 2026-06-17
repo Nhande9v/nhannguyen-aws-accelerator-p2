@@ -1,0 +1,5 @@
+# Các CVE được chấp nhận loại trừ (Exception Policy)
+# CVE-2026-XXXX: Lỗi thuộc thư viện devDependencies, không đóng gói vào production image
+CVE-2026-12345
+# CVE-2025-YYYY: Chưa có bản vá từ nhà cung cấp OS base image, đã có biện pháp giảm thiểu (mitigation)
+CVE-2025-67890

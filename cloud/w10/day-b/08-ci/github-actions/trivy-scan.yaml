@@ -1,0 +1,32 @@
+name: Security Scan (Trivy)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  scan:
+    name: Build and Scan Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Local Image for testing
+        run: |
+          docker build -t localhost:5005/azurahaven-backend:${{ github.sha }} .
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'localhost:5005/azurahaven-backend:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1' # Làm Fail pipeline nếu phát hiện lỗi CRITICAL
+          ignore-unfixed: true
+          severity: 'CRITICAL'
+          vuln-type: 'os,library'

@@ -1,0 +1,17 @@
+apiVersion: kyverno.io/v2beta1
+kind: PolicyException
+metadata:
+  name: azurahaven-hotfix-exception
+  namespace: demo-app
+spec:
+  exceptions:
+    - policyName: verify-image-signature
+      ruleNames:
+        - verify-signature-of-azurahaven
+  match:
+    any:
+    - resources:
+        kinds:
+        - Pod
+        names:
+        - azurahaven-backend-hotfix-* # Chỉ áp dụng ngoại lệ cho Pod hotfix cụ thể này
