@@ -39,7 +39,8 @@ DB_PASSWORD=123456
 => cho nên cần 90 ngày đổi 1 lần, or 30 ngày hoặc tự động
 - Secret Rotation = xoay vòng secret định kỳ.
 Vấn đề khi dùng Kubernetes Secret
-Nhiều người làm kiểu base64 chứ ko mã hóa rồi commit rất nguy hiểm giải pháp ko lưu secret trong git lưu AWS Secret manager, Azure Key Vault
+Nhiều người làm kiểu base64 chứ ko mã hóa rồi commit rất nguy hiểm giải pháp ko lưu secret trong git 
+lưu AWS Secret manager, Azure Key Vault
 AWS Secrets Manager
       |
       v
@@ -109,6 +110,7 @@ khi đổi password thì ESO sync lại
 ## 4. Supply Chain Security là gì?  ******** 
 Mục tiêu:
 - là việc bảo vệ toàn bộ quá trình từ lúc viết code cho đến khi ứng dụng chạy trong cluster, nhằm đảm bảo không ai chèn mã độc,
+Developer → Code → Build → Test → Package → Container → Deploy → Run
 Ví dụ:
 my-app:v1
 Ai đó push image giả:

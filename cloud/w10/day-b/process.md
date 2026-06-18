@@ -118,6 +118,8 @@ B2: 07-kyverno/exception-policy.yaml
 Đi làm sẽ có trường hợp khẩn cấp (Hotfix/Incident), hệ thống Core gặp lỗi nguy hiểm nhưng Image mới lại dính một CVE chưa có bản vá khiến Kyverno block. Bạn cần một file Policy ngoại lệ (Exception) tạm thời để cứu hệ thống.
 Sử dụng PolecyException của Kyverno trỏ đích danh tới Policy verify-image-signature để chừa một lối đi hẹp, an toàn, có kiểm soát.
 
+kubectl apply -f deployment.yaml:API Server gửi Image sang hỏi Kyverno: "Thằng này đòi chạy image localhost:5005/azurahaven-backend:v1.0.0 này, cho qua không?"Kyverno bốc cái Public Key (cosign.pub) ra verify chữ ký của Image đó trên Registry.Nếu khớp $\rightarrow$ Kyverno cho qua (Deploy thành công).Nếu hacker sửa image hoặc image chưa ký $\rightarrow$ Kyverno dội lỗi từ chối ngay ở cửa.
+
 ### 08-ci/github-actions/ (Tự động hóa luồng Bảo mật)
 Phần này định hình quy trình tự động hoàn toàn. Không một kỹ sư nào được phép tự ý dùng máy cá nhân để ký ảnh rồi đẩy lên Cluster; tất cả phải đi qua Pipeline.
 B1: 08-ci/github-actions/trivy-scan.yaml
