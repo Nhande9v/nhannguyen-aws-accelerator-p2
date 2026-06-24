@@ -8,7 +8,7 @@
 
 ---
 
-## 0. Vị trí trong kiến trúc (Placement Rationale)
+## Vị trí trong kiến trúc (Placement Rationale)
 
 Trigger tự động nằm trong layer **Model Training & Lifecycle** của `02_infra_design.md` (phần `ModelTraining` subgraph), nhưng **tách biệt với luồng training hàng tuần** — đây là một scheduler riêng gọi Prediction Lambda theo lịch định kỳ (ví dụ: mỗi 15 phút) để tạo rolling baseline prediction. Vị trí gợi ý trong kiến trúc:
 

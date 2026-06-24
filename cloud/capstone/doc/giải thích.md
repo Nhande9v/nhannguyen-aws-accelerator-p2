@@ -106,4 +106,3 @@ Tránh nhầm lẫn giữa kết quả dự đoán từ AI và kết quả đán
 | **Lambda Fallback Evaluator** | Circuit Breaker Fallback — dự phòng khi AI sập | Circuit Breaker chuyển sang trạng thái Open | Cảnh báo `[Fallback]` dựa trên Static Threshold lên Grafana |
 
 
-# sài PULL hay PUSH Pipeline
